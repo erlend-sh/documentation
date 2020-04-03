@@ -44,12 +44,18 @@ Attributes that will appear in the returned documents.
 
 ## Attributes to crop
 
-`attributesToCrop=<Attribute>,<Attribute>,...`
+`attributesToCrop=<Attribute:Length>,<Attribute:Length>,...`
 
-Attributes of which the value will be cropped depending on the `cropLength` and the matches.
+A list of attributes that will be cropped in the `_formatted` object. The `:Length` is optional; if it's empty, the default value will be the parameter `cropLength`. The attribute can also be `*`. In that case, `*` will be replaced by all attributes present in `attributesToRetrieve`.
+
+Some working examples:
+
+- `attributesToCrop=overview`
+- `attributesToCrop=overview:20`
+- `attributesToCrop=*,overview:20,title:0`
 
 ::: tip
-This is useful when you have specific needs for displaying results on the front-end application.
+This is useful when you have specific needs for displaying results on the front-end application. It can also optimize the size of the response.
 :::
 
 **Cropping start at the first occurrence of the search query**. It only keeps `(cropLength - matchLength)/2` chars on each side of the first match.
@@ -88,13 +94,18 @@ Our **cropped version is in the \_formatted object**.
 
 `cropLength=<Integer>`
 
-Total length of the cropped field. See [attributesToCrop](/guides/advanced_guides/search_parameters.md#attributes-to-crop)
+Total length of the cropped field. See [attributesToCrop](/guides/advanced_guides/search_parameters.md#attributes-to-crop). By default the cropped length is 200.
 
 ## Attributes to highlight
 
 `attributesToHighlight=<Attribute>,<Attribute>,...`
 
-Every matching string sequence in the given attribute's field will be wrapped around an `<em>` tag
+Every matching string sequence in the given attribute's field will be wrapped around an `<em>` tag. The attribute can also be `*`. In that case, `*` will be replaced by all attributes present in `attributesToRetrieve`.
+
+Some working examples:
+
+- `attributesToHighlight=overview`
+- `attributesToHighlight=*,overview`
 
 #### Example
 
